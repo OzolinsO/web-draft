@@ -773,56 +773,28 @@ p{margin:0}
 })();
 </script>
 
-<!-- ============================ SERVICE QUALITY ============================ -->
-<section class="sect mark">
-  <div class="wrap">
-    <div class="head rv">
-      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Service quality</span>
-      <h2>How do we cooperate</h2>
-      <p class="lede">Any competitor can quote the same inverter at a lower price. Few can offer a system that manages itself, warns before it fails and stays healthy for longer. That part of your offer resists commoditisation.</p>
-    </div>
-    <div class="grid g4">
-      <article class="card rv">
-        <h3>Smart energy management</h3>
-        <p>Every asset works to one plan instead of operating independently. Solar, storage, heating and charging are coordinated against price and load, with no settings for the customer to touch.</p>
-      </article>
-      <article class="card rv">
-        <h3>Fault detection and forecasting</h3>
-        <p>Continuous analysis catches degrading cells, failing strings and drifting parameters early — while the problem is still a scheduled visit rather than an emergency call on a Sunday evening.</p>
-      </article>
-      <article class="card rv">
-        <h3>Reduced downtime</h3>
-        <p>Alerts arrive with the diagnosis attached. Problems are resolved remotely where possible and repaired quickly where not, so the system spends more of its life producing and saving.</p>
-      </article>
-      <article class="card rv">
-        <h3>Equipment longevity</h3>
-        <p>Assets operate inside their design limits: controlled charge rates, temperature-aware behaviour, fewer unnecessary cycles. Longer service life protects the customer's investment and your reputation with it.</p>
-      </article>
-    </div>
-  </div>
-</section>
 
 <!-- ============================ BACK END ============================ -->
 <section class="sect mark" id="backend">
   <div class="wrap">
     <div class="head rv">
       <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 2v3M14 2v3M10 19v3M14 19v3M2 10h3M2 14h3M19 10h3M19 14h3"/></svg>Under the hood</span>
-      <h2>Complexity handled where nobody has to see it</h2>
-      <p class="lede">Your customer sees a lower bill. You see a clean fleet overview. Between the two runs a continuous cycle of measurement, forecasting and control, executing at every site without anyone logging in.</p>
+      <h2>It runs without anyone watching</h2>
+      <p class="lede">Your customer sees a lower bill. You see a clean fleet overview. The eight steps below repeat at every site, all day, with nobody involved.</p>
         <div class="head-cta">
         <a class="btn btn-primary" href="#contact">Become a partner <span class="chev">→</span></a>
         <a class="btn btn-ghost" href="#faq">Read the FAQ <span class="chev">→</span></a>
       </div>
     </div>
     <div class="steps rv">
-      <div class="step"><span class="step-n">01</span><h3>Data collection</h3><p>The on-site controller reads inverters, meters, batteries, heat pumps and chargers over their native protocols, at the resolution both optimisation and diagnostics require.</p></div>
-      <div class="step"><span class="step-n">02</span><h3>Transfer to cloud</h3><p>Data is buffered locally and synchronised to the platform over an encrypted link. Connectivity gaps cost you no data, and the site keeps operating while the link is down.</p></div>
-      <div class="step"><span class="step-n">03</span><h3>Consumption forecasting</h3><p>Historical patterns predict what the site will consume, hour by hour. The optimiser then plans against expected demand rather than reacting to load after it appears.</p></div>
-      <div class="step"><span class="step-n">04</span><h3>External data enrichment</h3><p>Forecasts combine with hourly power prices, weather data and grid signals. That external context determines what the correct decision at any given hour actually is.</p></div>
-      <div class="step"><span class="step-n">05</span><h3>Battery scenario building</h3><p>The platform calculates the charge and discharge schedule with the best financial outcome for the coming horizon, then revises it as prices and site conditions move.</p></div>
-      <div class="step"><span class="step-n">06</span><h3>Fault detection</h3><p>Live readings are checked against expected behaviour and manufacturer limits. Any deviation raises an alert naming the affected asset and the probable cause.</p></div>
-      <div class="step"><span class="step-n">07</span><h3>Predictive analysis</h3><p>Long-term trends expose slow degradation that no single reading reveals — falling capacity, rising operating temperatures, declining string output. Intervention gets planned instead of improvised.</p></div>
-      <div class="step"><span class="step-n">08</span><h3>Command execution</h3><p>Decisions are written back to the equipment as setpoints and control commands. Local logic keeps executing safely if the cloud connection drops mid-schedule.</p></div>
+      <div class="step"><span class="step-n">01</span><h3>Data collection</h3><p>The local controller communicates with inverters, meters, batteries, heat pumps and chargers through their native protocols.</p></div>
+      <div class="step"><span class="step-n">02</span><h3>Transfer to cloud</h3><p>Data is buffered locally and synchronised securely with the cloud. Sites continue operating during connectivity interruptions.</p></div>
+      <div class="step"><span class="step-n">03</span><h3>Consumption forecasting</h3><p>The platform learns how the site normally uses power and forecasts demand in 15-minute intervals.</p></div>
+      <div class="step"><span class="step-n">04</span><h3>External data enrichment</h3><p>That forecast is combined with electricity prices, weather data and grid signals.</p></div>
+      <div class="step"><span class="step-n">05</span><h3>Battery scenario building</h3><p>The platform calculates the financially optimal charging and discharging schedule and adjusts it as conditions change.</p></div>
+      <div class="step"><span class="step-n">06</span><h3>Fault detection</h3><p>Live measurements are compared with expected behaviour and manufacturer limits. Abnormalities generate alerts identifying the affected asset and probable cause.</p></div>
+      <div class="step"><span class="step-n">07</span><h3>Command execution</h3><p>Optimisation decisions are sent back to equipment as control commands. Local control continues even if cloud connectivity is interrupted.</p></div>
+      <div class="step"><span class="step-n">08</span><h3>Reporting</h3><p>Savings, generation, consumption and system health are compiled into a monthly report for the customer. Nobody has to prepare it, and the customer sees what the service is doing for them.</p></div>
     </div>
   </div>
 </section>
@@ -865,6 +837,35 @@ p{margin:0}
     </div>
   </div>
 </div>
+
+<!-- ============================ SERVICE QUALITY ============================ -->
+<section class="sect mark">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Service quality</span>
+      <h2>How do we cooperate</h2>
+      <p class="lede">Any competitor can quote the same inverter at a lower price. Few can offer a system that manages itself, warns before it fails and stays healthy for longer. That part of your offer resists commoditisation.</p>
+    </div>
+    <div class="grid g4">
+      <article class="card rv">
+        <h3>Smart energy management</h3>
+        <p>Every asset works to one plan instead of operating independently. Solar, storage, heating and charging are coordinated against price and load, with no settings for the customer to touch.</p>
+      </article>
+      <article class="card rv">
+        <h3>Fault detection and forecasting</h3>
+        <p>Continuous analysis catches degrading cells, failing strings and drifting parameters early — while the problem is still a scheduled visit rather than an emergency call on a Sunday evening.</p>
+      </article>
+      <article class="card rv">
+        <h3>Reduced downtime</h3>
+        <p>Alerts arrive with the diagnosis attached. Problems are resolved remotely where possible and repaired quickly where not, so the system spends more of its life producing and saving.</p>
+      </article>
+      <article class="card rv">
+        <h3>Equipment longevity</h3>
+        <p>Assets operate inside their design limits: controlled charge rates, temperature-aware behaviour, fewer unnecessary cycles. Longer service life protects the customer's investment and your reputation with it.</p>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- ============================ SITE PROFILES ============================ -->
 <section class="sect">
