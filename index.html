@@ -104,8 +104,8 @@ a{color:inherit}
 
 /* ---------- type ---------- */
 h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.03em;line-height:1.06}
-h1{font-size:clamp(40px,5.8vw,74px);font-weight:700;letter-spacing:-.038em}
-h2{font-size:clamp(31px,4.1vw,54px);font-weight:700;letter-spacing:-.035em}
+h1{font-size:clamp(32px,4.8vw,50px);font-weight:700;letter-spacing:-.038em}
+h2{font-size:clamp(31px,4.1vw,48px);font-weight:650;letter-spacing:-.035em}
 h3{font-size:19px;font-weight:600;letter-spacing:-.014em;line-height:1.3}
 p{margin:0}
 
@@ -188,7 +188,7 @@ p{margin:0}
   text-align:center;
   box-shadow:0 1px 2px rgba(16,16,20,.04);
 }
-.hero h1{max-width:19ch;margin:22px auto}
+.hero h1{max-width:28ch;margin:22px auto}
 .hero .lede{max-width:82ch;font-size:clamp(16.5px,1.45vw,18px);margin:0 auto 32px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px}
 .hero-actions .btn{min-width:212px}
@@ -297,9 +297,24 @@ p{margin:0}
 .day .tag{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#E9EAEC;box-shadow:none;margin-bottom:22px}
 .day h2{color:#fff;margin-bottom:14px}
 .day p{color:#A9ABB1;max-width:60ch;margin:0 auto}
-.day-chart{margin-top:34px}
+.day-chart{margin-top:34px;width:100%;height:auto;display:block;overflow:visible}
 .day-key{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:20px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8E9196}
 .day-key i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:8px;vertical-align:middle}
+
+/* ---------- day chart: animated mode badges + battery ---------- */
+.day-mode-standby,.day-mode-charge,.day-mode-discharge{opacity:0;transition:opacity .45s ease}
+.day-mode-standby.active,.day-mode-charge.active,.day-mode-discharge.active{opacity:1}
+#daySoc{transition:width 1s cubic-bezier(.4,0,.2,1)}
+@media (prefers-reduced-motion: reduce){
+  .day-mode-standby,.day-mode-charge,.day-mode-discharge{transition:none}
+  #daySoc{transition:none}
+}
+/* keep every label legible once the 900-wide viewBox is scaled down on phones */
+@media (max-width:640px){
+  .day-chart .day-lbl{font-size:15px}
+  .day-chart .day-lbl-em{font-size:16px}
+  .day-chart .day-axis{font-size:14px}
+}
 
 /* ---------- faq ---------- */
 .faq{max-width:920px;margin:0 auto;border-top:1px solid var(--line)}
@@ -453,18 +468,18 @@ p{margin:0}
 <!-- ============================ HERO ============================ -->
 <section class="hero wrap" id="top">
   <div class="hero-panel">
-    <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8z"/></svg>Vendor-agnostic energy management</span>
+    <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8z"/></svg>COMING SOON!</span>
     <h1>The energy management system that runs the site and controls the hardware</h1>
-    <p class="lede">HeloGrid is an energy management system that works across different brands of inverter, battery, heat pump and EV chargers. It applies smart algorithms to external price and weather data, optimising how the system you install actually runs. Your customers see lower energy costs and better support. You get the tools to monitor the equipment, sell operating and maintenance services on top, and build a portfolio of recurring revenue.</p>
+    <p class="lede">One system for every brand of inverter, battery, heat pump and EV charger on site, optimised against hourly power prices and weather forecasts. The same system watches how every asset is performing and flags faults before the customer notices them. Your customer's power bill drops. You earn recurring revenue from monitoring and maintenance.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#contact">Open free account <span class="chev">→</span></a>
+      <a class="btn btn-primary" href="#contact">Register for trial <span class="chev">→</span></a>
       <a class="btn btn-ghost" href="#revenue">Book a discovery call <span class="chev">→</span></a>
     </div>
     <div class="hero-meta">
-      <span class="chip">Vendor agnostic</span>
-      <span class="chip">Reduces energy costs</span>
-      <span class="chip">You control the price</span>
-      <span class="chip">We handle the payments</span>
+      <span class="chip">Recurring service revenue</span>
+      <span class="chip">Every site, one screen</span>
+      <span class="chip">Equipment health monitored</span>
+      <span class="chip">Proof for warranty claims</span>
     </div>
   </div>
 </section>
@@ -532,9 +547,9 @@ p{margin:0}
 <section class="sect" id="revenue">
   <div class="wrap">
     <div class="head rv">
-      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>Revenue</span>
-      <h2>Add recurring revenue after the installation is finished</h2>
-      <p class="lede">Panels, inverters and batteries are increasingly compared on price alone, and installation work is going the same way. The opportunity sits in what happens after commissioning. HeloGrid Edge lets you cut your client's power costs while turning monitoring and ongoing support into recurring service revenue.</p>
+      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>Why choose us?</span>
+      <h2>Turn monitoring into monthly service revenue</h2>
+      <p class="lede">Your revenue shouldn't end at handover. HeloGrid brings equipment health data from every site into one platform, so supervision and support become a service you charge for. And the fee pays for itself — by running the equipment against hourly prices and weather data, the system lowers the customer's power bill every month it operates.</p>
       <div class="head-cta">
         <a class="btn btn-primary" href="#contact">Become a partner <span class="chev">→</span></a>
         <a class="btn btn-ghost" href="#backend">See how it works <span class="chev">→</span></a>
@@ -544,22 +559,22 @@ p{margin:0}
       <article class="card rv">
         <span class="kicker">Monthly</span>
         <h3>Recurring maintenance revenue</h3>
-        <p>Remote monitoring becomes a paid monthly service instead of free after-sales support. You can monitor your customers' systems from one platform and charge a monthly fee for the service for as long as the system is running.</p>
+        <p>Remote monitoring becomes a paid monthly service instead of free after-sales support. You supervise every customer from one platform and charge for it.</p>
       </article>
       <article class="card rv">
-        <span class="kicker">Per call-out</span>
+        <span class="kicker">Per visit</span>
         <h3>Profitable service calls</h3>
-        <p>Before going to site, you can see what the problem is and which equipment is affected. This helps you diagnose faults before sending someone out. Site visits can be shorter, more efficient and profitable.</p>
+        <p>You identify the problem before visiting the site, making service visits shorter and more profitable.</p>
       </article>
       <article class="card rv">
         <span class="kicker">Project pipeline</span>
         <h3>Upsell services</h3>
-        <p>The platform can show where a customer's system could be improved. These insights can help you identify new upgrade opportunities and provide your customer with a better proposal.</p>
+        <p>You see where a site could be improved, creating opportunities for additional upgrades and services.</p>
       </article>
       <article class="card rv">
         <span class="kicker">Margin protection</span>
         <h3>Fewer warranty losses</h3>
-        <p>Warranty claims often require operating data. HeloGrid stores the system's operating history, giving you the information needed to support a warranty claim. This helps ensure that faulty equipment is covered by the supplier instead of becoming your cost.</p>
+        <p>HeloGrid stores the full operating history of every site. When equipment fails inside warranty, you have the data to prove it.</p>
       </article>
     </div>
   </div>
@@ -570,15 +585,15 @@ p{margin:0}
   <div class="wrap">
     <div class="head rv">
       <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Assets managed</span>
-      <h2>One controller for the whole site</h2>
-      <p class="lede">Sites rarely stay as installed. A battery is added, then a charger, then a heat pump two winters later. HeloGrid Edge manages all of it under one system, so every addition extends the same contract instead of starting a new problem.</p>
+      <h2>One system for the whole site</h2>
+      <p class="lede">Solar, storage, heating and EV charging work best when they follow one plan. HeloGrid schedules them together against the same prices and the same forecast, so the site as a whole gets the best result.</p>
     </div>
     <div class="grid g5 rv">
-      <article class="card card--sm"><h3>PV</h3><p>Monitors string-level production, detects underperformance and enforces the export limits set by the distribution operator for that connection.</p></article>
-      <article class="card card--sm"><h3>Batteries</h3><p>Controls charge and discharge against prices and load, protecting cells through temperature-aware and cycle-aware operation at all times.</p></article>
-      <article class="card card--sm"><h3>Heat pumps</h3><p>Shifts heating and cooling into low-price and high-solar hours, coordinated with storage, without reducing comfort for the occupants.</p></article>
-      <article class="card card--sm"><h3>EV chargers</h3><p>Schedules charging around surplus solar, cheap price windows and available connection capacity, keeping demand peaks off the monthly bill.</p></article>
-      <article class="card card--sm"><h3>Meters</h3><p>Reads grid import, export and internal consumption in real time — the reference point behind every optimisation decision made.</p></article>
+      <article class="card card--sm"><h3>PV</h3><p>Monitors string-level production, identifies underperformance and enforces grid export limits.</p></article>
+      <article class="card card--sm"><h3>Batteries</h3><p>Controls charging and discharging according to prices and load while considering temperature and battery cycles.</p></article>
+      <article class="card card--sm"><h3>Heat pumps</h3><p>Moves heating and cooling into cheaper, high-solar hours without affecting comfort.</p></article>
+      <article class="card card--sm"><h3>EV chargers</h3><p>Fits charging around solar surplus, cheap electricity periods and available grid capacity.</p></article>
+      <article class="card card--sm"><h3>Meters</h3><p>Measures grid import, export and internal consumption in real time and provides the reference data for optimisation.</p></article>
     </div>
   </div>
 </section>
@@ -588,33 +603,33 @@ p{margin:0}
   <div class="wrap">
     <div class="head rv">
       <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 6.6a5 5 0 0 0-7.1 0L12 8.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>Customer value</span>
-      <h2>The fee pays for itself on their bill</h2>
-      <p class="lede">This works only if both sides win. Your customer buys lower energy costs, avoided grid charges and equipment that lasts longer. The service fee sits inside the savings it creates, which is what makes the arrangement durable.</p>
+      <h2>Customer savings cover your service fee</h2>
+      <p class="lede">This only works if both sides win. Your customer gets lower energy costs, smaller grid charges and equipment that lasts longer. The customer pays your service fee out of the money the system saved them.</p>
     </div>
     <div class="grid g3">
       <article class="card rv">
         <h3>Cost reduction</h3>
-        <p>The battery charges when electricity is cheap and discharges when it is expensive, every day, without intervention. Price-driven scheduling turns storage from a backup asset into a working financial one.</p>
+        <p>The battery charges when electricity is cheap and discharges when it is expensive. This happens every day, automatically.</p>
       </article>
       <article class="card rv">
         <h3>No more cheap PV export</h3>
-        <p>Surplus solar goes into storage for later use instead of leaving the site at low or negative prices. Production is consumed where it holds the most value.</p>
+        <p>Surplus solar goes into the battery instead of being sold at low or negative prices. The customer uses it later, when power costs more.</p>
       </article>
       <article class="card rv">
         <h3>Peak shaving</h3>
-        <p>The battery covers short load peaks, so the connection never has to be sized for a few minutes a day. Customers avoid capacity charges and expensive connection upgrades.</p>
+        <p>The battery covers short peaks in consumption. This keeps capacity charges down and avoids paying for a bigger grid connection.</p>
       </article>
       <article class="card rv">
         <h3>Heat pump management</h3>
-        <p>The largest controllable load moves into low-price and high-solar hours, coordinated with battery state and site consumption. Comfort is unaffected, since the system shifts timing rather than reducing output.</p>
+        <p>Heating and cooling move to cheaper hours and hours with more sun. Comfort stays the same — only the timing changes.</p>
       </article>
       <article class="card rv">
         <h3>Grid compliance</h3>
-        <p>Export limits, curtailment instructions and monitoring obligations from the distribution operator are enforced at the site. The installation stays compliant and the connection agreement stays intact.</p>
+        <p>Export limits, curtailment instructions and monitoring requirements are applied automatically at the site. Nothing needs to be checked manually.</p>
       </article>
       <article class="card rv">
         <h3>Extra revenue potential</h3>
-        <p>External signals allow participation in VPP and flexibility programmes. Intraday and balancing market income becomes available to sites whose assets would otherwise sit idle for most of the day.</p>
+        <p>External market signals can allow sites to participate in VPP and flexibility programmes, including intraday and balancing-market opportunities.</p>
       </article>
     </div>
   </div>
@@ -628,7 +643,14 @@ p{margin:0}
       <h2>Cheap hours in. Expensive hours covered.</h2>
       <p>Energy is stored when it is cheap and released when it is expensive, every day, with no intervention from the site owner. Same comfort, same production, a smaller bill.</p>
 
-      <svg class="day-chart" viewBox="0 0 900 260" role="img" aria-label="Chart of a typical day: the battery charges from cheap overnight power, solar carries the middle of the day, and stored energy covers the evening price peak.">
+      <svg class="day-chart" id="dayChart" viewBox="0 0 900 356" role="img" aria-label="Animated chart of a typical day: a marker travels the day-ahead price curve, switching the battery between standby, charging in the cheap night hours and discharging through the expensive evening peak, while the battery gauge fills and empties to match.">
+        <defs>
+          <filter id="dayGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
         <!-- grid lines -->
         <g stroke="#3A3A3D" stroke-width="1">
           <line x1="40" y1="200" x2="870" y2="200"/>
@@ -636,39 +658,120 @@ p{margin:0}
           <line x1="40" y1="100" x2="870" y2="100" opacity=".5"/>
           <line x1="40" y1="50" x2="870" y2="50" opacity=".5"/>
         </g>
-        <!-- price shading: evening peak -->
-        <rect x="620" y="40" width="150" height="160" fill="#F59E0B" opacity=".14"/>
+        <!-- price shading -->
         <rect x="40" y="40" width="150" height="160" fill="#ffffff" opacity=".05"/>
-        <!-- demand curve -->
-        <path d="M40 170 C 150 176 220 150 300 120 C 400 86 460 96 540 104 C 620 112 660 64 720 60 C 790 56 840 120 870 140"
-              fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 5"/>
-        <!-- solar -->
-        <path d="M230 200 C 330 200 340 74 450 74 C 560 74 570 200 670 200 Z" fill="#F59E0B" opacity=".22"/>
-        <!-- battery action -->
-        <path d="M40 200 L 190 200 L 190 168 L 40 168 Z" fill="#F59E0B" opacity=".5"/>
-        <path d="M620 200 L 770 200 L 770 128 L 620 128 Z" fill="#F59E0B" opacity=".85"/>
+        <rect x="620" y="40" width="150" height="160" fill="#F59E0B" opacity=".14"/>
+
+        <!-- day-ahead price curve -->
+        <path d="M40 175 C 90 185, 140 192, 190 188 C 260 180, 320 150, 400 130 C 480 112, 560 95, 620 78 C 660 68, 700 62, 740 68 C 780 75, 820 95, 870 115 L870 200 L40 200 Z"
+              fill="#ffffff" opacity=".04"/>
+        <path id="dayCurve" d="M40 175 C 90 185, 140 192, 190 188 C 260 180, 320 150, 400 130 C 480 112, 560 95, 620 78 C 660 68, 700 62, 740 68 C 780 75, 820 95, 870 115"
+              fill="none" stroke="#E9EAEC" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- travelling cursor + dot -->
+        <line id="dayCursorLine" x1="40" y1="40" x2="40" y2="200" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 6" opacity=".4"/>
+        <circle id="dayDot" cx="40" cy="175" r="5" fill="#F59E0B" filter="url(#dayGlow)"/>
+
         <!-- labels -->
-        <g font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#9CA3AF">
+        <g class="day-lbl" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#9CA3AF">
           <text x="46" y="34">CHEAP NIGHT HOURS</text>
           <text x="626" y="34">EXPENSIVE EVENING HOURS</text>
+        </g>
+        <g class="day-axis" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#9CA3AF">
           <text x="40" y="228">00</text><text x="240" y="228">06</text>
           <text x="440" y="228">12</text><text x="640" y="228">18</text><text x="852" y="228">24</text>
         </g>
-        <g font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#E9EAEC">
-          <text x="60" y="190">CHARGE</text>
-          <text x="392" y="150">SOLAR CARRIES THE DAY</text>
-          <text x="640" y="190">DISCHARGE</text>
+
+        <!-- control-now mode badge -->
+        <text class="day-lbl" x="40" y="264" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#9CA3AF">CONTROL NOW</text>
+        <g class="day-mode-standby">
+          <rect x="150" y="248" width="110" height="28" rx="14" fill="#1C1C1F" stroke="#3A3A3D"/>
+          <text x="205" y="267" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1.4" fill="#9CA3AF">STANDBY</text>
         </g>
+        <g class="day-mode-charge">
+          <rect x="150" y="248" width="110" height="28" rx="14" fill="#F59E0B"/>
+          <text x="205" y="267" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1.4" fill="#141416">CHARGE</text>
+        </g>
+        <g class="day-mode-discharge">
+          <rect x="150" y="248" width="110" height="28" rx="14" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+          <text x="205" y="267" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1.4" fill="#F59E0B">DISCHARGE</text>
+        </g>
+
+        <!-- battery gauge -->
+        <text class="day-lbl" x="40" y="306" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#9CA3AF">BATTERY</text>
+        <rect x="40" y="314" width="170" height="32" rx="8" fill="#0C0C0D" stroke="#3A3A3D" stroke-width="1.5"/>
+        <rect x="212" y="322" width="7" height="16" rx="2" fill="#3A3A3D"/>
+        <rect id="daySoc" x="45" y="318" width="8" height="24" rx="5" fill="#F59E0B" opacity=".9"/>
       </svg>
 
       <div class="day-key">
-        <span><i style="background:#F59E0B"></i>Battery action</span>
-        <span><i style="background:rgba(245,158,11,.45)"></i>Solar production</span>
-        <span><i style="background:#9CA3AF"></i>Site demand</span>
+        <span><i style="background:#F59E0B"></i>Battery charge</span>
+        <span><i style="background:#E9EAEC"></i>Day-ahead price</span>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+// day chart: marker travels the price curve, drives the mode badge + battery gauge
+(function(){
+  var curve=document.getElementById('dayCurve');
+  var dot=document.getElementById('dayDot');
+  var cursor=document.getElementById('dayCursorLine');
+  var soc=document.getElementById('daySoc');
+  var modeStandby=document.querySelector('.day-mode-standby');
+  var modeCharge=document.querySelector('.day-mode-charge');
+  var modeDischarge=document.querySelector('.day-mode-discharge');
+  if(!curve||!dot) return;
+
+  var len=curve.getTotalLength();
+  var CHEAP=[40,190], PEAK=[620,770];
+  var SOC_MIN=8, SOC_MAX=158;
+  var DURATION=16000;
+  var lastMode=null;
+
+  function setMode(mode){
+    if(mode===lastMode) return;
+    lastMode=mode;
+    modeStandby.classList.toggle('active', mode==='standby');
+    modeCharge.classList.toggle('active', mode==='charge');
+    modeDischarge.classList.toggle('active', mode==='discharge');
+  }
+
+  function socWidthForX(x){
+    if(x<=CHEAP[0]) return SOC_MIN;
+    if(x<=CHEAP[1]) return SOC_MIN + (x-CHEAP[0])/(CHEAP[1]-CHEAP[0]) * (SOC_MAX-SOC_MIN);
+    if(x<=PEAK[0]) return SOC_MAX;
+    if(x<=PEAK[1]) return SOC_MAX - (x-PEAK[0])/(PEAK[1]-PEAK[0]) * (SOC_MAX-SOC_MIN);
+    return SOC_MIN;
+  }
+
+  function render(t){
+    var pt=curve.getPointAtLength(t*len);
+    dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y);
+    cursor.setAttribute('x1', pt.x); cursor.setAttribute('x2', pt.x);
+    var mode='standby';
+    if(pt.x>=CHEAP[0] && pt.x<=CHEAP[1]) mode='charge';
+    else if(pt.x>=PEAK[0] && pt.x<=PEAK[1]) mode='discharge';
+    setMode(mode);
+    soc.setAttribute('width', socWidthForX(pt.x));
+  }
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    render(0.79); // static snapshot: mid discharge, in the evening peak
+    return;
+  }
+
+  var start=null;
+  function frame(ts){
+    if(start===null) start=ts;
+    render(((ts-start)%DURATION)/DURATION);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 
 <!-- ============================ SERVICE QUALITY ============================ -->
 <section class="sect mark">
