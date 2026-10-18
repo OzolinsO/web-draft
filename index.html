@@ -13,11 +13,11 @@
 /* ============================================================
    HeloGrid landing — editorial drawing-sheet style
    Page: warm off-white, square frames, captions inside frame tops
-   Fonts: Inter + JetBrains Mono, as in the installer portal
+   Fonts: Instrument Serif (H1, H2) + Inter and JetBrains Mono, as in the installer portal
    Accent: #F59E0B
    ============================================================ */
 :root{
-  --bg:#F5F5F3; --panel:#FFFFFF; --well:#EFEFEC; --grid:#E9E9E5;
+  --bg:#F5F5F3; --panel:#FFFFFF; --well:#EFEFEC; --grid:rgba(0,0,0,.045);
   --ink:#111111; --ink2:#4F4F4F; --muted:#8A8A86; --line:#E2E2DE; --line2:#CDCDC8; --soft:#EDEDEA;
   --acc:#F59E0B; --acc-t:#A96A05; --acc-soft:#FEF3DC; --on-acc:#111111;
   --plate-line:#DCDCD7;
@@ -28,27 +28,30 @@
   --edge:max(12px, calc(50% - var(--maxw) / 2));
 }
 html[data-theme="dark"]{
-  --bg:#0B0B0B; --panel:#121212; --well:#0E0E0E; --grid:#171717;
+  --bg:#0B0B0B; --panel:#121212; --well:#0E0E0E; --grid:rgba(255,255,255,.035);
   --ink:#EDEDED; --ink2:#A3A3A3; --muted:#7A7A7A; --line:#262626; --line2:#383838; --soft:#1B1B1B;
   --acc-t:#F59E0B; --acc-soft:#2A1F0A;
   --plate-line:#2E2E2E;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:clip}
-body{margin:0;position:relative;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+html{scroll-behavior:smooth;overflow-x:clip;background-color:var(--bg)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;
+  -webkit-mask-image:radial-gradient(ellipse 95% 75% at 50% 15%,#000 35%,transparent 85%);mask-image:radial-gradient(ellipse 95% 75% at 50% 15%,#000 35%,transparent 85%)}
+body{margin:0;position:relative;background:transparent;color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 img{max-width:100%;display:block}
 p{margin:0}
 h1,h2,h3,h4{margin:0;font-family:var(--sans)}
 em{font-style:normal}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
-.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
 /* ---------- drawing-sheet lattice ---------- */
 .rails{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;justify-content:center}
 .rails i{display:block;height:100%;width:min(calc(100% - 24px),var(--maxw));border-left:1px solid var(--line);border-right:1px solid var(--line)}
 .mark{position:relative;border-top:1px solid var(--line)}
-.mark::before,.mark::after,.x{content:"";position:absolute;width:17px;height:17px;z-index:2;pointer-events:none;
+.mark::before,.mark::after{content:"";position:absolute;width:17px;height:17px;z-index:2;pointer-events:none;
   background:linear-gradient(var(--line2),var(--line2)) 50% 50%/1px 100% no-repeat,linear-gradient(var(--line2),var(--line2)) 50% 50%/100% 1px no-repeat}
 .mark::before,.mark::after{top:-9px}
 .mark::before{left:calc(var(--edge) - 8px)} .mark::after{right:calc(var(--edge) - 8px)}
@@ -80,23 +83,16 @@ html[data-theme="dark"] .brand img{filter:invert(1) hue-rotate(180deg)}
 .btn-primary:hover{background:#E08E06;border-color:#E08E06}
 .btn-ghost{background:var(--panel);border-color:var(--line2);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--ink)}
-.btn-sm{padding:9px 12px;font-size:10.5px}
+.btn-block{display:flex;width:100%}
 
 /* ---------- hero ---------- */
 .hero{position:relative;z-index:1;padding:clamp(36px,5vw,64px) 0 clamp(48px,6vw,80px)}
-.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:640px;pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;
-  -webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
 .hero .wrap{position:relative}
-.spec{display:flex;flex-wrap:wrap;border:1px solid var(--line2);background:var(--panel);width:fit-content;max-width:100%}
-.spec div{padding:9px 14px;border-right:1px solid var(--line2);font-size:13px;line-height:1.35;color:var(--ink)}
-.spec div:last-child{border-right:0}
-.spec small{display:block;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,64px);align-items:center;margin-top:clamp(28px,3.5vw,44px)}
 .hero h1{font-family:var(--serif);font-size:clamp(46px,6.4vw,84px);font-weight:400;letter-spacing:-.02em;line-height:1;margin:0 0 24px}
 .hero h1 em{color:var(--acc)}
-.hero .lede{font-size:clamp(16.5px,1.5vw,18.5px);color:var(--ink2);line-height:1.6;max-width:56ch;margin-bottom:22px}
-.hero .lede b{color:var(--ink);font-weight:600}
+.hero .lede{font-size:clamp(16.5px,1.5vw,18.5px);color:var(--ink2);line-height:1.6;max-width:56ch;margin-bottom:14px}
+.hero .lede + .facts{margin-top:22px}
 .facts{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
 .facts::before{content:"";width:28px;height:1px;background:var(--line2);flex:none}
 .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
@@ -126,15 +122,11 @@ h2 span{color:var(--acc)}
 .pts li:last-child{border-bottom:1px solid var(--line)}
 .pts li::before{content:"";width:15px;height:15px;margin-top:3px;border:1.5px solid var(--ink);background:linear-gradient(var(--acc),var(--acc)) center/5px 5px no-repeat}
 .pts b{display:block;color:var(--ink);font-weight:600;font-size:15.5px;margin-bottom:2px}
-.pts.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
-.pts.cols li:last-child{border-bottom:0}
-.pts.cols li:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
 .sub-h{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:14px}
 .sub-h::after{content:"";flex:1;height:1px;background:var(--line)}
 
 /* ---------- figure plates: caption bar inside the top, corner crosses ---------- */
 figure.pl{
-  /* illustrations keep the light portal palette in both themes */
   --ink:#16161A; --ink2:#5C5F66; --muted:#8E9196; --line:#E4E4E7; --line2:#D2D2D8; --soft:#F0F0F2; --paper:#F3F4F6;
   position:relative;margin:0;min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid var(--plate-line);color:var(--ink)}
 figure.pl > figcaption{order:-1;display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid #E6E6E2;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A7A76;background:inherit}
@@ -145,6 +137,7 @@ figure.pl::before{top:-9px} figure.pl::after{bottom:-9px}
 html[data-theme="dark"] figure.pl::before,html[data-theme="dark"] figure.pl::after{background:linear-gradient(#444,#444) 50% 50%/1px 100% no-repeat,linear-gradient(#444,#444) 50% 50%/100% 1px no-repeat}
 .fb{padding:clamp(14px,2vw,22px)}
 .ffoot{display:flex;justify-content:space-between;gap:12px;padding:9px 14px;border-top:1px solid #E6E6E2;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8E9196}
+.figs{display:grid;gap:clamp(28px,3vw,40px)}
 .below{margin-top:16px}
 .below h3{font-size:17.5px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
 .below p{font-size:15px;color:var(--ink2);line-height:1.58}
@@ -294,7 +287,7 @@ table.t .r{text-align:right}
 .cmd:last-child{border-bottom:0}
 .cmd small{display:block;color:var(--muted);font-size:11.5px}
 
-/* value report and goals (section 5) */
+/* value report and goals */
 .vk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .goals{display:grid;gap:8px}
 .goal{border:1px solid var(--line);padding:10px 12px;font-size:12.5px;color:var(--ink2)}
@@ -336,40 +329,28 @@ html[data-theme="dark"] .logo .lg{filter:grayscale(1) invert(1);opacity:.75}
 .logos.scroll::-webkit-scrollbar-track{background:transparent}
 .logo .wm{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;color:var(--ink2)}
 
-/* why: open grid */
-.why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px}
-.why{display:grid;grid-template-columns:30px minmax(0,1fr);padding:18px 0 22px;border-top:1px solid var(--line)}
-.why .n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--acc-t);padding-top:3px}
-.why h3{font-size:16.5px;font-weight:600;letter-spacing:-.015em;margin-bottom:4px}
-.why p{font-size:14.5px;color:var(--ink2);line-height:1.58}
 
 /* team */
 .team{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:clamp(24px,3vw,40px);align-items:start}
 .member{padding-top:22px;border-top:1px solid var(--line)}
 .member-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
-img.photo{object-fit:cover;display:block;border:1px solid var(--line2)}
+.photo{display:flex;align-items:center;justify-content:center;flex:none;width:60px;height:60px;background:var(--ink);color:var(--bg);font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.01em}
 .member .photo{width:112px;height:112px;font-size:44px}
-.photo.av-t{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;background:var(--ink);color:var(--bg)}
-.book-who .photo.av-t{font-size:18px}
-.photo{width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:var(--ink);color:var(--bg);font-weight:600;font-size:18px}
 .li{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--line2);color:var(--ink)}
 .li svg{width:15px;height:15px}
 .li:hover{background:var(--ink);color:var(--bg)}
 .member h3{font-size:18px;font-weight:600;margin-bottom:4px}
 .role{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc-t);margin-bottom:12px}
 .member p{font-size:15px;color:var(--ink2)}
-.code{font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--ink)}
-.code .k{color:#A96A05} .code .c{color:#2E7D32}
-
-/* faq */
-.faq-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,72px);align-items:start}
 .book{background:var(--panel);border:1px solid var(--line2);padding:22px}
 .book-who{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.book-who .photo{width:42px;height:42px;font-size:14px}
+.book-who .photo{width:42px;height:42px;font-size:18px}
 .book-who b{display:block;font-size:14.5px}
 .book-who span{font-size:12.5px;color:var(--muted)}
 .book p{font-size:14px;color:var(--ink2);margin-bottom:16px}
-.faq{border-top:1px solid var(--line)}
+
+/* faq */
+.faq{border-top:1px solid var(--line);max-width:820px;margin-left:auto}
 .faq details{border-bottom:1px solid var(--line)}
 .faq summary{list-style:none;cursor:pointer;padding:20px 44px 20px 0;position:relative;font-weight:500;font-size:17px;letter-spacing:-.015em;line-height:1.4}
 .faq summary::-webkit-details-marker{display:none}
@@ -381,7 +362,7 @@ img.photo{object-fit:cover;display:block;border:1px solid var(--line2)}
 
 /* closing CTA */
 .close{position:relative;overflow:hidden;background:#111111;color:#fff;border:1px solid #262626;padding:clamp(40px,6vw,80px) clamp(22px,5vw,72px)}
-.close::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(245,158,11,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,.08) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:radial-gradient(70% 80% at 85% 20%,#000 0%,transparent 75%);mask-image:radial-gradient(70% 80% at 85% 20%,#000 0%,transparent 75%);pointer-events:none}
+.close::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(245,158,11,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,.08) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(70% 80% at 85% 20%,#000 0%,transparent 75%);mask-image:radial-gradient(70% 80% at 85% 20%,#000 0%,transparent 75%);pointer-events:none}
 .close-in{position:relative;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);align-items:start}
 .close .snote{text-align:left;color:#8E9196;padding:0;margin-bottom:18px;max-width:none}
 .close .snote b{color:#F59E0B}
@@ -402,7 +383,7 @@ img.photo{object-fit:cover;display:block;border:1px solid var(--line2)}
 .nxt-i p{font-size:14px;color:#A9ABB1;line-height:1.55}
 
 /* footer */
-.foot{position:relative;z-index:1;padding:56px 0 40px;font-size:14.5px;color:var(--ink2)}
+.foot{position:relative;z-index:1;background:var(--bg);padding:56px 0 40px;font-size:14.5px;color:var(--ink2)}
 .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:40px;margin-bottom:40px}
 .foot-lead p{margin-top:18px;max-width:44ch}
 .foot h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:700}
@@ -414,6 +395,27 @@ img.photo{object-fit:cover;display:block;border:1px solid var(--line2)}
 .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+
+/* what it is: three functions */
+.tri .who-ill{min-height:268px}
+.ftag{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);padding:3px 8px}
+.plan-bars{display:flex;align-items:flex-end;gap:4px;height:64px;border-bottom:1px solid var(--line2)}
+.plan-bars i{flex:1;background:var(--line)}
+.plan-bars i.c{background:#F59E0B}
+.plan-bars i.d{background:transparent;border:1.5px solid #F59E0B;border-bottom:0}
+.plan-l{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin:4px 0 6px}
+.tri-joins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.5vw,32px);height:36px}
+.tri-joins i{position:relative}
+.tri-joins i::before{content:"";position:absolute;left:50%;top:4px;bottom:8px;width:2px;margin-left:-1px;background:repeating-linear-gradient(180deg,#F59E0B 0 5px,transparent 5px 9px);animation:flowv 1.1s linear infinite}
+.tri-joins i::after{content:"";position:absolute;left:50%;bottom:0;margin-left:-5px;border-top:7px solid #F59E0B;border-left:5px solid transparent;border-right:5px solid transparent}
+.onebar{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;background:var(--ink);color:var(--bg);padding:18px 22px}
+.onebar-logo{display:flex;align-items:center}
+.onebar-logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
+html[data-theme="dark"] .onebar-logo img{filter:brightness(0)}
+.onebar-logo .wm-b{color:var(--bg);font-size:24px}
+.onebar-i{display:flex;flex-wrap:wrap;gap:8px 22px}
+.onebar-i span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.onebar-i span::before{content:"";width:7px;height:7px;background:var(--acc)}
 
 /* data platform figure */
 .dbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -459,15 +461,13 @@ html[data-theme="dark"] figure.pl :is(.cu,.kpi,.pnl,.side,.ib,.sitegrid div,.dev
 html[data-theme="dark"] figure.pl :is(.cu.p,.dev,.n-portal,.summary){background:#1E1E21}
 html[data-theme="dark"] figure.pl :is(.side-nav div.on,.eq){background:#26262A}
 html[data-theme="dark"] .side-nav div{color:#A3A6AB}
-html[data-theme="dark"] .ib.solid,html[data-theme="dark"] .sw{background:#E8ECEE;color:#141416;border-color:#E8ECEE}
+html[data-theme="dark"] .sw{background:#E8ECEE}
 html[data-theme="dark"] .sw::after{background:#141416}
 html[data-theme="dark"] figure.pl .ib.solid{background:#E8ECEE;color:#141416;border-color:#E8ECEE}
 html[data-theme="dark"] figure.pl .ib.ok{background:#2E7D32;color:#fff;border-color:#2E7D32}
 html[data-theme="dark"] .n-ctrl{background:#0A0A0B;box-shadow:inset 0 0 0 1px #3A3A3D}
 html[data-theme="dark"] .n-cloud{border-color:#E8ECEE}
 html[data-theme="dark"] .inputs span{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:#F2B544}
-html[data-theme="dark"] .code .k{color:#F59E0B}
-html[data-theme="dark"] .code .c{color:#5CC27A}
 /* status chips */
 html[data-theme="dark"] .sev.f{background:rgba(239,107,107,.15);color:#EF6B6B}
 html[data-theme="dark"] .sev.w{background:rgba(242,169,59,.15);color:#F2A93B}
@@ -514,13 +514,13 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media (max-width:1040px){
-  .hero-grid,.split,.split.rev,.faq-grid,.close-in{grid-template-columns:1fr}
+  .hero-grid,.split,.split.rev,.close-in{grid-template-columns:1fr}
+  .faq{max-width:none;margin-left:0}
   .split.rev > .txt{order:0}
   .txt{position:static}
   .duo-col{grid-template-columns:1fr}
   .team{grid-template-columns:1fr 1fr}
-  .team .bridge{grid-column:1 / -1}
-  .why-grid{grid-template-columns:1fr 1fr}
+  .team .book{grid-column:1 / -1}
   .hiw-grid{display:flex;flex-direction:column;align-items:stretch}
   .devs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-right:0}
   .devs::before,.dev::after{display:none}
@@ -546,24 +546,29 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   .hide-m{display:none}
   .shead{grid-template-columns:1fr}
   .snote{text-align:left;padding-top:0}
-  .pts.cols{grid-template-columns:1fr}
-  .pts.cols li:nth-last-child(2){border-bottom:0}
   .band{grid-template-columns:1fr}
   .band-l{border-right:0;border-bottom:1px solid var(--line2)}
   .foot-grid{grid-template-columns:1fr;gap:28px}
   .inputs{grid-template-columns:1fr}
   .vk{grid-template-columns:1fr 1fr}
 }
+/* phones: text only, no illustrations */
+@media (max-width:700px){
+  .tri-joins{display:none}
+  .onebar{margin-top:8px}
+  figure.pl{display:none !important}
+  .below{margin-top:0}
+  .duo-col .sub-h{margin-bottom:0}
+  .g3{gap:0}
+  .g3 > div{padding:18px 0;border-top:1px solid var(--line)}
+}
 @media (max-width:600px){
   body{font-size:16px}
-  .spec{flex-direction:column;width:100%}
-  .spec div{border-right:0;border-bottom:1px solid var(--line2)}
-  .spec div:last-child{border-bottom:0}
   .hero h1{font-size:clamp(50px,14.5vw,60px);line-height:.98;letter-spacing:-.025em}
   h2{font-size:clamp(40px,11.5vw,48px);line-height:1.02;letter-spacing:-.02em}
   .shead{margin-bottom:20px}
   .hero-actions .btn,.close-actions .btn{flex:1 1 100%}
-  .team,.why-grid{grid-template-columns:1fr}
+  .team{grid-template-columns:1fr}
   .devs{grid-template-columns:1fr}
   .flow-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cmd{grid-template-columns:1fr;gap:4px}
@@ -573,15 +578,6 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   .faq summary{font-size:16px}
   .faq details p{padding-right:0}
   .layers .lab{font-size:15px}
-}
-/* phones: text only, no illustrations */
-@media (max-width:700px){
-  figure.pl{display:none !important}
-  .below{margin-top:0}
-  .duo-col .sub-h{margin-bottom:0}
-  .g3{gap:0}
-  .g3 > div{padding:18px 0;border-top:1px solid var(--line)}
-  .team .bridge{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
@@ -628,11 +624,12 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="top">
   <div class="wrap">
-    <div class="status top"><span><i></i>Coming soon</span><span><i></i>Early partner programme open</span></div>
+    <div class="status"><span><i></i>Coming soon</span><span><i></i>Early partner programme open</span></div>
     <div class="hero-grid">
       <div>
         <h1>Turn building energy systems into <em>service contracts.</em></h1>
-        <p class="lede">HeloGrid is <b>one platform</b> for installers, facility managers and multi-site operators to monitor and control the energy equipment in their clients' buildings. It plans every device against electricity prices and grid limits, catches faults early and reports the results under your brand.</p>
+        <p class="lede">HeloGrid lets you monitor and control your clients' energy systems remotely, even when they use equipment from different manufacturers.</p>
+        <p class="lede">Cut service costs, lower your clients' energy bills and turn aftercare into recurring revenue, under your own brand.</p>
         <div class="facts">Any supported brand · Local control · Your brand, your client</div>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Book a discovery call <span class="chev">→</span></a>
@@ -640,7 +637,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </div>
       </div>
 
-      <!-- Fig. 01: the platform, layer by layer -->
+      <!-- the platform, layer by layer -->
       <figure class="pl layers rv">
         <figcaption><span><b>Fig. 01</b> · The platform, layer by layer</span><span>Exploded view</span></figcaption>
         <div class="fb">
@@ -707,32 +704,32 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
             </g>
           </svg>
         </div>
-        <div class="ffoot"><span>Fig. 01 · Exploded view</span><span>4 layers · 1 accent</span></div>
+        <div class="ffoot"><span>Bottom to top · site to screen</span><span>4 layers · 1 accent</span></div>
       </figure>
     </div>
 
-    <!-- Fig. 00: installer portal dashboard -->
+    <!-- installer portal dashboard -->
     <figure class="pl hero-wide rv">
-      <figcaption><span><b>Fig. 00</b> · Installer portal · Dashboard</span><span>portal.your-company.com · Sample data</span></figcaption>
-      <div class="ui app" role="img" aria-label="Installer portal dashboard with 30 plants, 29 online, 5 open alerts assigned to technicians, and a plant list with live values.">
+      <figcaption><span><b>Fig. 02</b> · Installer portal · Dashboard</span><span>portal.your-company.com · Sample data</span></figcaption>
+      <div class="ui app" role="img" aria-label="Installer portal dashboard with 30 sites, 29 online, 5 open alerts assigned to technicians, and a site list with live values.">
         <aside class="side">
           <div class="side-logo">YOUR LOGO</div>
           <div class="side-nav">
             <div class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</div>
-            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Plant monitor</div>
+            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Site monitor</div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17v.5"/></svg>Alerts<span class="badge">5</span></div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-6 4 4 8-9"/></svg>Charts</div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M10 17v-3M13 17v-6M16 17v-4"/></svg>Reports</div>
-            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>Plant settings</div>
+            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>Site settings</div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16"/><path d="M9 9h6v6H9z"/></svg>Devices</div>
-            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Plant owners</div>
+            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Site owners</div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v8H4V4h11"/></svg>My tasks</div>
           </div>
           <div class="side-pw">Powered by HeloGrid</div>
         </aside>
         <div class="main">
           <div class="kpis">
-            <div class="kpi"><span class="lbl g">Plants</span><div class="v">30</div><div class="s">10 homes · 20 commercial</div></div>
+            <div class="kpi"><span class="lbl g">Sites</span><div class="v">30</div><div class="s">10 homes · 20 commercial</div></div>
             <div class="kpi"><span class="lbl g">Online</span><div class="v">29/30</div><div class="s">1 offline</div></div>
             <div class="kpi"><span class="lbl g">Open alerts</span><div class="v" style="color:#C62828">5</div><div class="s">2 faults · 2 warnings · 1 maint.</div></div>
             <div class="kpi"><span class="lbl g">Solar now</span><div class="v">1 842 kW</div><div class="s">live · 27 sites producing</div></div>
@@ -745,7 +742,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
               <div class="fchips"><span class="fchip on">Open 5</span><span class="fchip">Unassigned 1</span><span class="fchip">Faults 2</span><span class="fchip">Warnings 2</span></div>
             </div>
             <div class="tsc"><table class="t">
-              <thead><tr><th>Severity</th><th>Plant</th><th class="hide-m">What happened</th><th class="hide-m">Since</th><th class="hide-m">Employee</th><th>Status</th></tr></thead>
+              <thead><tr><th>Severity</th><th>Site</th><th class="hide-m">What happened</th><th class="hide-m">Since</th><th class="hide-m">Employee</th><th>Status</th></tr></thead>
               <tbody>
                 <tr><td><span class="sev f">Fault</span></td><td>Mārupe Cold Store</td><td class="hide-m dim">Inverter stopped: grid voltage out of range</td><td class="hide-m num dim">42 min</td><td class="hide-m"><span class="row"><span class="av" style="background:#1F6F8B">MK</span>Mārtiņš Kalns</span></td><td><span class="row num" style="font-size:12px"><span class="dot w"></span>In progress</span></td></tr>
                 <tr><td><span class="sev f">Fault</span></td><td>Salaspils Greenhouses</td><td class="hide-m dim">Battery temperature high, 47 °C</td><td class="hide-m num dim">1 h</td><td class="hide-m"><span class="row"><span class="av" style="background:#7A5C99">EO</span>Elīna Ozola</span></td><td><span class="row num" style="font-size:12px"><span class="dot f"></span>Unattended</span></td></tr>
@@ -756,9 +753,9 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
             </table></div>
           </div>
           <div class="pnl">
-            <div class="pnl-h"><div><span class="lbl">Portfolio</span><div class="ttl">Plants <span class="num dim" style="font-size:13px;font-weight:500">30/30</span></div></div><div class="fchips"><span class="fchip on">All 30</span><span class="fchip">Homes 10</span><span class="fchip">Commercial 20</span></div></div>
+            <div class="pnl-h"><div><span class="lbl">Portfolio</span><div class="ttl">Sites <span class="num dim" style="font-size:13px;font-weight:500">30/30</span></div></div><div class="fchips"><span class="fchip on">All 30</span><span class="fchip">Homes 10</span><span class="fchip">Commercial 20</span></div></div>
             <div class="tsc"><table class="t">
-              <thead><tr><th>Plant</th><th class="hide-m">Devices</th><th>Connection</th><th class="r">Solar kW</th><th class="r hide-m">Grid kW</th><th class="r">Battery</th></tr></thead>
+              <thead><tr><th>Site</th><th class="hide-m">Devices</th><th>Connection</th><th class="r">Solar kW</th><th class="r hide-m">Grid kW</th><th class="r">Battery</th></tr></thead>
               <tbody>
                 <tr><td><b style="font-weight:500">Ādaži Logistics Hub</b><div class="dim sm">Ziemeļu Loģistika</div></td><td class="hide-m"><span class="eq">PV</span><span class="eq">BAT</span><span class="eq">EV</span><span class="eq">HP</span></td><td><span class="row num" style="font-size:12px"><span class="dot o"></span>Online</span></td><td class="r num">114.8</td><td class="r num hide-m">−18.4</td><td class="r num">63 %</td></tr>
                 <tr><td><b style="font-weight:500">Ozoliņi residence</b><div class="dim sm">Ozolu Nami</div></td><td class="hide-m"><span class="eq">PV</span><span class="eq">BAT</span><span class="eq">EV</span><span class="eq">HP</span></td><td><span class="row num" style="font-size:12px"><span class="dot o"></span>Online</span></td><td class="r num">3.9</td><td class="r num hide-m">+1.2</td><td class="r num">72 %</td></tr>
@@ -772,18 +769,80 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 01 · WHO ============================ -->
+<!-- ============================ 01 · WHAT IT IS ============================ -->
+<section class="sect mark" id="platform">
+  <div class="wrap">
+    <div class="shead">
+      <h2>Monitoring, energy management and maintenance. <span>In one platform.</span></h2>
+      <p class="snote"><b>01 / 13 · What it is</b>One platform, three jobs.</p>
+    </div>
+    <div class="intro"><p class="lede-p">Most sites run these as three separate tools from three different vendors, with three logins and data that never connects. HeloGrid does all three on one data model, so a fault seen in monitoring becomes a maintenance task, and the energy plan knows about it.</p></div>
+    <div class="g3 tri">
+      <div class="rv">
+        <figure class="pl">
+          <figcaption><span>Monitoring</span><span>Fig. 03a</span></figcaption>
+          <div class="fb ui who-ill">
+            <div class="cu">
+              <div class="between" style="margin-bottom:6px"><span class="lbl">Live · Ādaži Logistics Hub</span><span class="row num" style="font-size:11px;color:#2E7D32"><span class="dot o"></span>LIVE</span></div>
+              <div class="kv"><span>Solar</span><span>114.8 kW</span></div>
+              <div class="kv"><span>Grid</span><span>−18.4 kW</span></div>
+              <div class="kv"><span>Battery</span><span>63 %</span></div>
+              <div class="kv"><span>Open alerts</span><span><span class="sev w">1 warning</span></span></div>
+            </div>
+          </div>
+        </figure>
+        <div class="below"><span class="k">SCADA-style supervision</span><h3>Monitoring</h3><p>Live telemetry, alerts and full history for every device on every site.</p></div>
+      </div>
+      <div class="rv">
+        <figure class="pl">
+          <figcaption><span>Energy management</span><span>Fig. 03b</span></figcaption>
+          <div class="fb ui who-ill">
+            <div class="cu">
+              <div class="between" style="margin-bottom:8px"><span class="lbl">Today's plan · battery</span><span class="sev n">15 min</span></div>
+              <div class="plan-bars"><i class="c" style="height:55%"></i><i class="c" style="height:55%"></i><i class="c" style="height:55%"></i><i style="height:6%"></i><i style="height:6%"></i><i class="c" style="height:80%"></i><i class="c" style="height:90%"></i><i class="c" style="height:70%"></i><i style="height:6%"></i><i class="d" style="height:75%"></i><i class="d" style="height:85%"></i><i class="d" style="height:60%"></i></div>
+              <div class="plan-l num"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+              <div class="kv"><span>Goal</span><span class="t" style="color:var(--ink)">Lowest total cost</span></div>
+              <div class="kv"><span>Next</span><span class="t" style="color:var(--ink)">Discharge 16:30</span></div>
+            </div>
+          </div>
+        </figure>
+        <div class="below"><span class="k">EMS</span><h3>Energy management</h3><p>Plans and controls batteries, heat pumps and chargers against prices and grid limits.</p></div>
+      </div>
+      <div class="rv">
+        <figure class="pl">
+          <figcaption><span>Maintenance management</span><span>Fig. 03c</span></figcaption>
+          <div class="fb ui who-ill">
+            <div class="cu">
+              <div class="between" style="margin-bottom:6px"><span class="lbl">Tasks · this week</span><span class="num dim" style="font-size:11px">3</span></div>
+              <div class="kv"><span style="color:var(--ink)">Inverter 2 fault<div class="dim sm">Mārupe Cold Store</div></span><span><span class="sev w">in progress</span></span></div>
+              <div class="kv"><span style="color:var(--ink)">Battery capacity test<div class="dim sm">Jelgava Dairy</div></span><span class="sm" style="color:#B26A00">overdue</span></div>
+              <div class="kv"><span style="color:var(--ink)">Annual inspection<div class="dim sm">Ādaži Logistics Hub</div></span><span class="sm">due 24 Oct</span></div>
+            </div>
+          </div>
+        </figure>
+        <div class="below"><span class="k">CMMS</span><h3>Maintenance management</h3><p>Alerts, tasks, planned maintenance and work history for your team.</p></div>
+      </div>
+    </div>
+    <div class="tri-joins" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="onebar rv">
+      <span class="onebar-logo"><img src="https://helogrid.com/wp-content/uploads/2026/03/HeloGrid-logo-and-colours.svg" alt="HeloGrid"></span>
+      <div class="onebar-i"><span>One login</span><span>One data model</span><span>One bill</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 · WHO IT'S FOR ============================ -->
 <section class="sect mark" id="who">
   <div class="wrap">
     <div class="shead">
       <h2>Built for companies that run energy systems on behalf of their clients.</h2>
-      <p class="snote"><b>01 / 14 · Who it's for</b>Three kinds of service business. One platform.</p>
+      <p class="snote"><b>02 / 13 · Who it's for</b>Three kinds of service business. One platform.</p>
     </div>
     <div class="intro"><p class="lede-p">HeloGrid is made for service companies that need to monitor and control energy equipment reliably and safely, across many client sites at once. Some companies install the equipment, some maintain the buildings, and some own the buildings. All of them need one place to see every site, act on problems and prove the value of their work.</p></div>
     <div class="g3">
       <div class="rv">
         <figure class="pl">
-          <figcaption><span>Installers</span><span>Fig. 02a</span></figcaption>
+          <figcaption><span>Installers</span><span>Fig. 04a</span></figcaption>
           <div class="fb ui who-ill">
             <div class="cu">
               <div class="between" style="margin-bottom:6px"><span class="lbl">Your sites · 30</span><span class="sev o">29 online</span></div>
@@ -798,7 +857,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
       </div>
       <div class="rv">
         <figure class="pl">
-          <figcaption><span>Facility management</span><span>Fig. 02b</span></figcaption>
+          <figcaption><span>Facility management</span><span>Fig. 04b</span></figcaption>
           <div class="fb ui who-ill">
             <div class="cu">
               <div class="between" style="margin-bottom:6px"><span class="lbl">Buildings under contract</span><span class="num dim sm">4</span></div>
@@ -813,7 +872,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
       </div>
       <div class="rv">
         <figure class="pl">
-          <figcaption><span>Multi-site</span><span>Fig. 02c</span></figcaption>
+          <figcaption><span>Multi-site</span><span>Fig. 04c</span></figcaption>
           <div class="fb ui who-ill">
             <div class="between" style="margin-bottom:10px"><span class="lbl">All locations · same rules</span><span class="num dim" style="font-size:11px;white-space:nowrap">12/12 online</span></div>
             <div class="sitegrid">
@@ -829,23 +888,23 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 02 · HOW IT WORKS ============================ -->
+<!-- ============================ 03 · HOW IT WORKS ============================ -->
 <section class="sect mark" id="how">
   <div class="wrap">
     <div class="shead">
       <h2>From each device on site to a monthly report, <span>in one system.</span></h2>
-      <p class="snote"><b>02 / 14 · How it works</b>Telemetry up. Plan down. Every 15 minutes.</p>
+      <p class="snote"><b>03 / 13 · How it works</b>Telemetry up. Plan down. Every 15 minutes.</p>
     </div>
     <div class="intro">
       <p class="lede-p">A HeloGrid controller is installed at each site. It collects telemetry such as power, voltage, temperature and charge level directly from the equipment over the building's local network, without going through any manufacturer's cloud.</p>
-      <p class="lede-p">The telemetry is sent securely to the HeloGrid cloud. There it is combined with electricity prices, weather forecasts and the site's tariff. The cloud calculates the best operating plan for the day and sends it back to the controller, which carries it out.</p>
+      <p class="lede-p">The telemetry is sent securely to the HeloGrid cloud. There it is combined with electricity prices, weather forecasts and the site's tariff to forecast the next day's consumption, solar production and self-consumption. From that forecast, the cloud calculates the best operating plan and sends it back to the controller, which carries it out.</p>
       <p class="lede-p">All telemetry is stored, so it can feed alerts, maintenance planning, performance analysis and client reports.</p>
     </div>
 
-    <!-- Fig. 03: devices → controller ⇄ cloud → portal and reports -->
+    <!-- devices → controller ⇄ cloud → portal and reports -->
     <figure class="pl rv">
-      <figcaption><span><b>Fig. 03</b> · Data and control flow</span><span>Telemetry up · plan down</span></figcaption>
-      <div class="fb ui" role="img" aria-label="Devices on site send telemetry to the HeloGrid controller on site. The controller exchanges telemetry and the plan with the HeloGrid cloud, which adds day-ahead prices, weather forecasts and the site tariff. Alerts, fleet view and client reports go to your portal.">
+      <figcaption><span><b>Fig. 05</b> · Data and control flow</span><span>Telemetry up · plan down</span></figcaption>
+      <div class="fb ui" role="img" aria-label="Devices on site send telemetry to the HeloGrid controller on site. The controller exchanges telemetry and the plan with the HeloGrid cloud, which adds day-ahead prices, weather forecasts and the site tariff, and forecasts next-day consumption, solar production and self-consumption. Alerts, fleet view and client reports go to your portal.">
         <div class="hiw-grid">
           <div class="devs">
             <div class="dev"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="10"/><path d="M3 10h18M9 5v10M15 5v10M12 15v4M8 19h8"/></svg></span><b>Solar inverter</b><span class="num">6.2 kW</span></div>
@@ -872,7 +931,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
           <div class="node n-cloud">
             <span class="lbl">HeloGrid cloud · EU</span>
             <h4>Forecast, plan and watch</h4>
-            <ul><li>Forecasts the site every 15 minutes</li><li>Plans the day for every device</li><li>Detects faults and raises alerts</li><li>Stores the full telemetry history</li></ul>
+            <ul><li>Forecasts next-day consumption, solar and self-consumption</li><li>Plans the day for every device</li><li>Detects faults and raises alerts</li><li>Stores the full telemetry history</li></ul>
           </div>
           <div class="conn c3" aria-hidden="true"><span class="ln"></span></div>
           <div class="node n-portal">
@@ -891,90 +950,128 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
       <div class="step"><span class="n">01</span><h3>Collect</h3><p>The controller reads telemetry from inverters, batteries, heat pumps, EV chargers, meters and controllable loads, using the communication standard each device supports.</p></div>
       <div class="step"><span class="n">02</span><h3>Transfer</h3><p>Telemetry is sent to the cloud over an encrypted connection. If the internet drops, it is kept locally and sent once the connection is back.</p></div>
       <div class="step"><span class="n">03</span><h3>Enrich</h3><p>The cloud adds day-ahead electricity prices loaded from many power exchanges and marketplaces, weather and solar forecasts, and the site's own tariff.</p></div>
-      <div class="step"><span class="n">04</span><h3>Plan</h3><p>It calculates a schedule for the battery, heat pumps and chargers, always within the site's grid limits.</p></div>
+      <div class="step"><span class="n">04</span><h3>Forecast and plan</h3><p>It forecasts the site's consumption, solar production and self-consumption for the next day, then calculates a schedule for the battery, heat pumps and chargers, always within the site's grid limits.</p></div>
       <div class="step"><span class="n">05</span><h3>Execute</h3><p>The controller carries out the plan locally and keeps following it even if the connection is lost.</p></div>
       <div class="step"><span class="n">06</span><h3>Store and report</h3><p>Stored telemetry history drives fault detection, maintenance tracking and monthly reports.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============================ 03 · REVENUE ============================ -->
+<!-- ============================ 04 · RECURRING REVENUE ============================ -->
 <section class="sect mark" id="revenue">
   <div class="wrap">
     <div class="shead">
       <h2>Recurring revenue from the systems <span>you already install.</span></h2>
-      <p class="snote"><b>03 / 14 · Recurring revenue</b>A paid service, and the tools to deliver it.</p>
+      <p class="snote"><b>04 / 13 · Recurring revenue</b>A paid service, and the tools to deliver it.<span class="ftag">Maintenance · Monitoring</span></p>
     </div>
     <div class="split">
       <div class="txt">
-        <p class="lede-p">Installation work is project-based, so income goes up and down with each new contract. A monthly service contract evens that out, but only if the client can see what they are paying for. HeloGrid gives you the tools to run that service and to show its value every month.</p>
+        <p class="lede-p">Installation work is project-based, so income goes up and down with each new contract. A monthly service contract evens that out, but only if the client can see what they are paying for. HeloGrid gives you the tools to run that service and to show its value every month. And because most failures start as a small change in the telemetry, problems become planned visits instead of emergency call-outs.</p>
         <ul class="pts">
-          <li><span><b>Planned maintenance</b>Inspections and tests are scheduled for each site and assigned to a named employee.</span></li>
+          <li><span><b>Planned maintenance</b>Inspections and tests are scheduled for each site, assigned to a named employee and closed with notes.</span></li>
+          <li><span><b>Early warnings</b>Each inverter is compared with the others on the same site. Battery temperature, cell balance and battery health are tracked over time.</span></li>
           <li><span><b>Alerts with clear ownership</b>Every fault is assigned and tracked from open to resolved. Notes and the full history are kept.</span></li>
+          <li><span><b>Full operating history</b>A continuous log of measurements and events supports warranty claims with manufacturers.</span></li>
           <li><span><b>Notification rules</b>You decide who hears about faults, warnings and maintenance, by email or SMS, including out-of-hours cover and reminders if a fault is left unattended.</span></li>
           <li><span><b>Under your brand</b>Your logo appears in your portal, in your clients' portal and on every PDF report.</span></li>
           <li><span><b>Grounds for upgrades</b>Site data shows where a larger battery, an EV charger or a better heating schedule would pay off.</span></li>
           <li><span><b>You keep the margin</b>HeloGrid is a one-off payment that covers 10 years. The monthly fee you charge your client is set by you and stays with you.</span></li>
         </ul>
       </div>
+      <div class="figs">
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 04</b> · Alert detail, rules and tasks</span><span>Sample data</span></figcaption>
-        <div class="fb ui stack" role="img" aria-label="Alert detail with assignment, status, a resolution note and activity log, next to notification rules and planned maintenance tasks.">
-          <div class="cu">
-            <div class="row" style="align-items:flex-start;gap:12px;margin-bottom:14px">
-              <span class="sev f" style="margin-top:2px">Fault</span>
-              <div style="min-width:0"><div class="ttl">Inverter stopped: grid voltage out of range</div><div class="dim" style="font-size:12.5px">Mārupe Cold Store · Inverter 2</div></div>
-            </div>
-            <div class="four">
-              <div><span class="lbl g">Status</span><div class="row" style="margin-top:3px"><span class="dot w"></span>In progress</div></div>
-              <div><span class="lbl g">Started</span><div class="num" style="margin-top:3px">10:14</div></div>
-              <div><span class="lbl g">Open for</span><div class="num" style="margin-top:3px">42 min</div></div>
-              <div><span class="lbl g">Assigned</span><div class="row" style="margin-top:3px"><span class="av" style="background:#1F6F8B;width:20px;height:20px;font-size:9px">MK</span>M. Kalns</div></div>
-            </div>
-            <div style="border:1px solid var(--line);padding:10px 12px;font-size:13px;color:var(--ink2);margin-bottom:10px">Breaker reset, inverter back online. Check grid voltage at the next visit.</div>
-            <div class="row" style="flex-wrap:wrap;margin-bottom:14px"><span class="ib ok">✓ Resolve with this note</span><span class="ib">Add as note only</span></div>
-            <span class="lbl g">Activity</span>
-            <div class="kv" style="margin-top:4px"><span><span class="num dim sm" style="margin-right:10px">10:56</span>Mārtiņš Kalns</span><span class="t">Status: in progress</span></div>
-            <div class="kv"><span><span class="num dim sm" style="margin-right:10px">10:20</span>Anna Liepa</span><span class="t">Assigned to Mārtiņš Kalns</span></div>
-            <div class="kv"><span><span class="num dim sm" style="margin-right:10px">10:14</span>HeloGrid</span><span class="t">Alert raised by the controller</span></div>
-          </div>
-          <div class="two">
+          <figcaption><span><b>Fig. 06a</b> · Alert detail, rules and tasks</span><span>Sample data</span></figcaption>
+          <div class="fb ui stack" role="img" aria-label="Alert detail with assignment, status, a resolution note and activity log, next to notification rules and planned maintenance tasks.">
             <div class="cu">
-              <span class="lbl">Notification rules</span>
-              <div class="kv" style="margin-top:6px"><span><span class="sev f">Fault</span></span><span class="t">Email · SMS · owner</span></div>
-              <div class="kv"><span><span class="sev w">Warning</span></span><span class="t">Email</span></div>
-              <div class="kv"><span><span class="sev m">Maint.</span></span><span class="t">Email</span></div>
-              <div class="kv"><span>Out of hours</span><span class="t" style="color:var(--ink)">R. Vējš</span></div>
-              <div class="kv"><span>Remind after</span><span>1 h</span></div>
+              <div class="row" style="align-items:flex-start;gap:12px;margin-bottom:14px">
+                <span class="sev f" style="margin-top:2px">Fault</span>
+                <div style="min-width:0"><div class="ttl">Inverter stopped: grid voltage out of range</div><div class="dim" style="font-size:12.5px">Mārupe Cold Store · Inverter 2</div></div>
+              </div>
+              <div class="four">
+                <div><span class="lbl g">Status</span><div class="row" style="margin-top:3px"><span class="dot w"></span>In progress</div></div>
+                <div><span class="lbl g">Started</span><div class="num" style="margin-top:3px">10:14</div></div>
+                <div><span class="lbl g">Open for</span><div class="num" style="margin-top:3px">42 min</div></div>
+                <div><span class="lbl g">Assigned</span><div class="row" style="margin-top:3px"><span class="av" style="background:#1F6F8B;width:20px;height:20px;font-size:9px">MK</span>M. Kalns</div></div>
+              </div>
+              <div style="border:1px solid var(--line);padding:10px 12px;font-size:13px;color:var(--ink2);margin-bottom:10px">Breaker reset, inverter back online. Check grid voltage at the next visit.</div>
+              <div class="row" style="flex-wrap:wrap;margin-bottom:14px"><span class="ib ok">✓ Resolve with this note</span><span class="ib">Add as note only</span></div>
+              <span class="lbl g">Activity</span>
+              <div class="kv" style="margin-top:4px"><span><span class="num dim sm" style="margin-right:10px">10:56</span>Mārtiņš Kalns</span><span class="t">Status: in progress</span></div>
+              <div class="kv"><span><span class="num dim sm" style="margin-right:10px">10:20</span>Anna Liepa</span><span class="t">Assigned to Mārtiņš Kalns</span></div>
+              <div class="kv"><span><span class="num dim sm" style="margin-right:10px">10:14</span>HeloGrid</span><span class="t">Alert raised by the controller</span></div>
             </div>
-            <div class="cu">
-              <span class="lbl">My tasks · maintenance</span>
-              <div class="kv" style="margin-top:6px"><span style="color:var(--ink)">Annual inspection<div class="dim sm">Ādaži Logistics Hub</div></span><span class="sm">due 24 Oct</span></div>
-              <div class="kv"><span style="color:var(--ink)">Battery capacity test<div class="dim sm">Jelgava Dairy</div></span><span class="sm" style="color:#B26A00">overdue</span></div>
-              <div class="kv"><span style="color:var(--ink)">Thermal camera check<div class="dim sm">Sigulda Spa Hotel</div></span><span class="sm">due 2 Nov</span></div>
+            <div class="two">
+              <div class="cu">
+                <span class="lbl">Notification rules</span>
+                <div class="kv" style="margin-top:6px"><span><span class="sev f">Fault</span></span><span class="t">Email · SMS · owner</span></div>
+                <div class="kv"><span><span class="sev w">Warning</span></span><span class="t">Email</span></div>
+                <div class="kv"><span><span class="sev m">Maint.</span></span><span class="t">Email</span></div>
+                <div class="kv"><span>Out of hours</span><span class="t" style="color:var(--ink)">R. Vējš</span></div>
+                <div class="kv"><span>Remind after</span><span>1 h</span></div>
+              </div>
+              <div class="cu">
+                <span class="lbl">My tasks · maintenance</span>
+                <div class="kv" style="margin-top:6px"><span style="color:var(--ink)">Annual inspection<div class="dim sm">Ādaži Logistics Hub</div></span><span class="sm">due 24 Oct</span></div>
+                <div class="kv"><span style="color:var(--ink)">Battery capacity test<div class="dim sm">Jelgava Dairy</div></span><span class="sm" style="color:#B26A00">overdue</span></div>
+                <div class="kv"><span style="color:var(--ink)">Thermal camera check<div class="dim sm">Sigulda Spa Hotel</div></span><span class="sm">due 2 Nov</span></div>
+              </div>
             </div>
           </div>
-        </div>
       </figure>
+        <figure class="pl rv">
+          <figcaption><span><b>Fig. 06b</b> · Health report and operating log</span><span>Sample data</span></figcaption>
+          <div class="fb ui stack" role="img" aria-label="Health report: four inverters compared, one 13.5 percent below the site average; battery health over the period; and an exportable operating log.">
+            <div class="cu">
+              <div class="between" style="margin-bottom:6px"><div><span class="lbl">Health · Q3 2026</span><div class="ttl">Solar inverters compared with each other</div></div><span class="sev w">Needs attention</span></div>
+              <div class="tsc"><table class="t">
+                <thead><tr><th>Inverter</th><th class="r">Production</th><th class="r">Per kW of panels</th><th class="r">vs site average</th></tr></thead>
+                <tbody>
+                  <tr><td>Inverter 1</td><td class="r num">5.9 MWh</td><td class="r num">79 kWh/kWp</td><td class="r num">+3.6 %</td></tr>
+                  <tr><td>Inverter 2</td><td class="r num">5.8 MWh</td><td class="r num">78 kWh/kWp</td><td class="r num">+2.3 %</td></tr>
+                  <tr><td><b style="font-weight:600">Inverter 3</b></td><td class="r num">4.9 MWh</td><td class="r num">66 kWh/kWp</td><td class="r num" style="color:#B26A00;font-weight:700">−13.5 %</td></tr>
+                  <tr><td>Inverter 4</td><td class="r num">5.9 MWh</td><td class="r num">82 kWh/kWp</td><td class="r num">+7.6 %</td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="two">
+              <div class="cu">
+                <span class="lbl">Battery health</span>
+                <div class="kv" style="margin-top:6px"><span>Start of period</span><span>97.4 %</span></div>
+                <div class="kv"><span>End of period</span><span>96.9 %</span></div>
+                <div class="kv"><span>Lost in period</span><span>0.5 pts</span></div>
+                <div class="kv"><span>Highest cell temperature</span><span>29 °C</span></div>
+                <div class="dim sm" style="margin-top:8px">A loss of about 1.5–2 points a year is normal.</div>
+              </div>
+              <div class="cu">
+                <div class="between"><span class="lbl">Operating log · Battery</span><span class="ib" style="font-size:11px;padding:4px 8px">Export</span></div>
+                <div class="kv" style="margin-top:6px"><span class="num sm">14 Sep 02:10</span><span class="t">Charge from grid · 24 °C</span></div>
+                <div class="kv"><span class="num sm">14 Sep 17:30</span><span class="t">Discharge within limits</span></div>
+                <div class="kv"><span class="num sm">15 Sep 07:40</span><span class="t" style="color:#C62828">Module 3 cell spread high</span></div>
+                <div class="kv"><span class="num sm">15 Sep 07:41</span><span class="t">Warning sent · R. Vējš</span></div>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============================ 04 · DASHBOARDS AND REPORTS ============================ -->
+<!-- ============================ 05 · DASHBOARDS AND REPORTS ============================ -->
 <section class="sect mark" id="reports">
   <div class="wrap">
     <div class="shead">
       <h2>Dashboards for your team. <span>Reports for your clients.</span></h2>
-      <p class="snote"><b>04 / 14 · Dashboards and reports</b>Same data. Two audiences.</p>
+      <p class="snote"><b>05 / 13 · Dashboards and reports</b>Same data. Two audiences.<span class="ftag">Monitoring</span></p>
     </div>
     <div class="intro"><p class="lede-p">Your team needs to act quickly. Your clients need to understand results. HeloGrid gives each the view they need, from the same data.</p></div>
     <div class="duo-col">
       <div>
         <div class="sub-h">For your team</div>
         <figure class="pl rv">
-          <figcaption><span><b>Fig. 05a</b> · Plant monitor</span><span>Sample data</span></figcaption>
-          <div class="fb ui stack" role="img" aria-label="Plant monitor with live energy flow tiles and the commands the controller is executing now and planned next.">
-            <div class="between"><div><span class="lbl">Plant monitor</span><div class="ttl">Ozoliņi residence</div></div><span class="row num" style="font-size:11px;color:#2E7D32"><span class="dot o"></span>LIVE</span></div>
+          <figcaption><span><b>Fig. 07a</b> · Site monitor</span><span>Sample data</span></figcaption>
+          <div class="fb ui stack" role="img" aria-label="Site monitor with live energy flow tiles and the commands the controller is executing now and planned next.">
+            <div class="between"><div><span class="lbl">Site monitor</span><div class="ttl">Ozoliņi residence</div></div><span class="row num" style="font-size:11px;color:#2E7D32"><span class="dot o"></span>LIVE</span></div>
             <div class="flow-tiles">
               <div class="ft"><div class="bar" style="background:#F59E0B"></div><div class="k">Solar</div><div class="v">6.2 kW</div><div class="s">of 10.2 kWp</div></div>
               <div class="ft"><div class="bar" style="background:#1E6FB8"></div><div class="k">Grid</div><div class="v">0.8 kW</div><div class="s">selling</div></div>
@@ -1002,7 +1099,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
       <div>
         <div class="sub-h">For your clients</div>
         <figure class="pl rv">
-          <figcaption><span><b>Fig. 05b</b> · Monthly client report</span><span>Sample data</span></figcaption>
+          <figcaption><span><b>Fig. 07b</b> · Monthly client report</span><span>Sample data</span></figcaption>
           <div class="fb ui stack" role="img" aria-label="Monthly client report with key figures, a production and consumption chart and an automatic summary.">
             <div class="between"><div><span class="lbl">Energy report · September 2026</span><div class="ttl">Ozoliņi residence</div></div><span class="ib solid">Export PDF</span></div>
             <div class="rkpis">
@@ -1038,12 +1135,12 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 05 · ENERGY COSTS ============================ -->
+<!-- ============================ 06 · ENERGY COSTS ============================ -->
 <section class="sect mark" id="energy">
   <div class="wrap">
     <div class="shead">
       <h2>Lower energy costs through <span>coordinated control.</span></h2>
-      <p class="snote"><b>05 / 14 · Energy costs</b>Every device on one plan. Savings measured monthly.</p>
+      <p class="snote"><b>06 / 13 · Energy costs</b>Every device on one plan. Savings measured monthly.<span class="ftag">Energy management</span></p>
     </div>
     <div class="split rev">
       <div class="txt">
@@ -1058,7 +1155,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </ul>
       </div>
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 06</b> · Value report and EMS goals</span><span>Sample data</span></figcaption>
+        <figcaption><span><b>Fig. 08</b> · Value report and EMS goals</span><span>Sample data</span></figcaption>
         <div class="fb ui stack" role="img" aria-label="Value report for a quarter showing net electricity cost, total savings and where the savings came from, next to the site's energy management goal and battery settings.">
           <div class="cu">
             <div class="between" style="margin-bottom:10px"><div><span class="lbl">Report 4 · Value · Q3 2026</span><div class="ttl">Ādaži Logistics Hub</div></div><span class="ib solid">Export PDF</span></div>
@@ -1104,69 +1201,14 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 06 · EQUIPMENT LIFE ============================ -->
-<section class="sect mark" id="life">
-  <div class="wrap">
-    <div class="shead">
-      <h2>Longer equipment life. <span>Fewer emergency call-outs.</span></h2>
-      <p class="snote"><b>06 / 14 · Equipment life</b>Small changes, caught early.</p>
-    </div>
-    <div class="split">
-      <div class="txt">
-        <p class="lede-p">Most failures start as a small change in the telemetry long before anything stops. HeloGrid watches for these changes, keeps equipment within its makers' limits, and records everything. Problems become planned visits instead of emergencies.</p>
-        <ul class="pts">
-          <li><span><b>Early warnings</b>Each inverter is compared with the others on the same site. Battery temperature, cell balance and battery health are tracked over time.</span></li>
-          <li><span><b>Operating limits enforced</b>Battery reserve, maximum charge, daily cycle limits and the battery system's own limits are respected automatically.</span></li>
-          <li><span><b>Planned maintenance</b>Recurring tasks are scheduled, assigned and closed with notes.</span></li>
-          <li><span><b>Full operating history</b>A continuous log of measurements and events supports warranty claims with manufacturers.</span></li>
-        </ul>
-      </div>
-      <figure class="pl rv">
-        <figcaption><span><b>Fig. 07</b> · Health report and operating log</span><span>Sample data</span></figcaption>
-        <div class="fb ui stack" role="img" aria-label="Health report: four inverters compared, one 13.5 percent below the site average; battery health over the period; and an exportable operating log.">
-          <div class="cu">
-            <div class="between" style="margin-bottom:6px"><div><span class="lbl">Health · Q3 2026</span><div class="ttl">Solar inverters compared with each other</div></div><span class="sev w">Needs attention</span></div>
-            <div class="tsc"><table class="t">
-              <thead><tr><th>Inverter</th><th class="r">Production</th><th class="r">Per kW of panels</th><th class="r">vs site average</th></tr></thead>
-              <tbody>
-                <tr><td>Inverter 1</td><td class="r num">5.9 MWh</td><td class="r num">79 kWh/kWp</td><td class="r num">+3.6 %</td></tr>
-                <tr><td>Inverter 2</td><td class="r num">5.8 MWh</td><td class="r num">78 kWh/kWp</td><td class="r num">+2.3 %</td></tr>
-                <tr><td><b style="font-weight:600">Inverter 3</b></td><td class="r num">4.9 MWh</td><td class="r num">66 kWh/kWp</td><td class="r num" style="color:#B26A00;font-weight:700">−13.5 %</td></tr>
-                <tr><td>Inverter 4</td><td class="r num">5.9 MWh</td><td class="r num">82 kWh/kWp</td><td class="r num">+7.6 %</td></tr>
-              </tbody>
-            </table></div>
-          </div>
-          <div class="two">
-            <div class="cu">
-              <span class="lbl">Battery health</span>
-              <div class="kv" style="margin-top:6px"><span>Start of period</span><span>97.4 %</span></div>
-              <div class="kv"><span>End of period</span><span>96.9 %</span></div>
-              <div class="kv"><span>Lost in period</span><span>0.5 pts</span></div>
-              <div class="kv"><span>Highest cell temperature</span><span>29 °C</span></div>
-              <div class="dim sm" style="margin-top:8px">A loss of about 1.5–2 points a year is normal.</div>
-            </div>
-            <div class="cu">
-              <div class="between"><span class="lbl">Operating log · Battery</span><span class="ib" style="font-size:11px;padding:4px 8px">Export</span></div>
-              <div class="kv" style="margin-top:6px"><span class="num sm">14 Sep 02:10</span><span class="t">Charge from grid · 24 °C</span></div>
-              <div class="kv"><span class="num sm">14 Sep 17:30</span><span class="t">Discharge within limits</span></div>
-              <div class="kv"><span class="num sm">15 Sep 07:40</span><span class="t" style="color:#C62828">Module 3 cell spread high</span></div>
-              <div class="kv"><span class="num sm">15 Sep 07:41</span><span class="t">Warning sent · R. Vējš</span></div>
-            </div>
-          </div>
-        </div>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ 07 · MULTI-VENDOR ============================ -->
 <section class="sect mark" id="vendors">
   <div class="wrap">
     <div class="shead">
       <h2>Different brands, <span>one set of rules.</span></h2>
-      <p class="snote"><b>07 / 14 · Multi-vendor</b>One driver per model, reused at every site.</p>
+      <p class="snote"><b>07 / 13 · Multi-vendor</b>One driver per model, reused at every site.</p>
     </div>
-    <div class="split rev">
+    <div class="split">
       <div class="txt">
         <p class="lede-p">Sites increasingly mix equipment from different makers: inverters, batteries, heat pumps, EV chargers and meters. Each usually comes with its own app and its own logic, and they work against each other.</p>
         <p class="lede-p">HeloGrid connects to each device directly, so the site follows one plan and one set of rules, whatever brand is installed. You are not tied to one manufacturer's platform.</p>
@@ -1178,10 +1220,10 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </ul>
       </div>
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 08</b> · Devices and wiring</span><span>Sample data</span></figcaption>
-        <div class="fb ui stack" role="img" aria-label="Plant settings device list with seven devices from six brands, their drivers, connections and controller check status, and the wiring tree of the site.">
+        <figcaption><span><b>Fig. 09</b> · Devices and wiring</span><span>Sample data</span></figcaption>
+        <div class="fb ui stack" role="img" aria-label="Site settings device list with seven devices from six brands, their drivers, connections and controller check status, and the wiring tree of the site.">
           <div class="cu">
-            <div class="between" style="margin-bottom:6px"><div><span class="lbl">Plant settings · Devices and wiring</span><div class="ttl">7 devices, 6 brands</div></div><span class="ib solid">+ Add device</span></div>
+            <div class="between" style="margin-bottom:6px"><div><span class="lbl">Site settings · Devices and wiring</span><div class="ttl">7 devices, 6 brands</div></div><span class="ib solid">+ Add device</span></div>
             <div class="tsc"><table class="t">
               <thead><tr><th>Device</th><th>Driver</th><th class="hide-m">Connection</th><th>Controller check</th></tr></thead>
               <tbody>
@@ -1254,9 +1296,9 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   <div class="wrap">
     <div class="shead">
       <h2>Years of operating data, <span>ready to work with.</span></h2>
-      <p class="snote"><b>08 / 14 · Data platform</b>Every value kept. Ready for a digital twin.</p>
+      <p class="snote"><b>08 / 13 · Data platform</b>Every value kept. Ready for a digital twin.</p>
     </div>
-    <div class="split">
+    <div class="split rev">
       <div class="txt">
         <p class="lede-p">Every site sends a continuous stream of telemetry from every device. HeloGrid stores it in a purpose-built, layered database architecture: time-series storage for measurements, a structured model of every device and how the site is wired, and a complete log of events and commands, all linked together. Every device is described the same way, whatever the brand. This structure drives the reports, alerts and plan today, and is designed from the start as the foundation of a digital twin: a live virtual model of each site.</p>
         <ul class="pts">
@@ -1269,7 +1311,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </ul>
       </div>
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 09</b> · Data architecture and portfolio query</span><span>Sample data</span></figcaption>
+        <figcaption><span><b>Fig. 10</b> · Data architecture and portfolio query</span><span>Sample data</span></figcaption>
         <div class="fb ui stack" role="img" aria-label="Three linked data stores, measurements, devices and wiring, and events and commands, combine into a digital twin of each site. Below, a portfolio query ranks battery health across 30 sites and flags two batteries ageing faster than normal.">
           <div class="dbs">
             <div class="db">
@@ -1288,7 +1330,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
               <div class="db-h"><span class="db-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span class="lbl">Log</span></div>
               <b>Events and commands</b>
               <small>alarms · commands · settings changes</small>
-              <div class="db-log num"><div><span>07:15</span>DSO · export ≤ 30 %</div><div><span>10:14</span>Fault · inverter 2</div><div><span>14:02</span>Peak target 110 kW</div></div>
+              <div class="db-log num"><div><span>07:15</span>Grid operator · export ≤ 30 %</div><div><span>10:14</span>Fault · inverter 2</div><div><span>14:02</span>Peak target 110 kW</div></div>
             </div>
           </div>
           <div class="db-joins" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -1319,9 +1361,9 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   <div class="wrap">
     <div class="shead">
       <h2>Grid limits and operator requirements, <span>enforced on site.</span></h2>
-      <p class="snote"><b>09 / 14 · Grid safety</b>Limits hold, even offline.</p>
+      <p class="snote"><b>09 / 13 · Grid safety</b>Limits hold, even offline.</p>
     </div>
-    <div class="split rev">
+    <div class="split">
       <div class="txt">
         <p class="lede-p">Every site must respect the limits of its grid connection and, increasingly, follow requests from the grid operator. HeloGrid applies these on the controller itself, so they hold even when the site is offline. Every plan and every command works inside them.</p>
         <ul class="pts">
@@ -1333,7 +1375,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </ul>
       </div>
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 10</b> · Grid limits and external commands</span><span>Sample data</span></figcaption>
+        <figcaption><span><b>Fig. 11</b> · Grid limits and external commands</span><span>Sample data</span></figcaption>
         <div class="fb ui stack" role="img" aria-label="Grid power over a day kept between the import and export limits, with a grid operator request limiting export to 30 percent at midday, the list of limits that are always respected, and the external commands.">
           <div class="cu">
             <div class="between" style="margin-bottom:10px"><div><span class="lbl">Charts · Grid power and limits</span><div class="ttl">Ādaži Logistics Hub · today</div></div><span class="sev n">15-min values</span></div>
@@ -1381,14 +1423,14 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 10 · SECURITY ============================ -->
+<!-- ============================ 10 · SECURITY AND RELIABILITY ============================ -->
 <section class="sect mark" id="security">
   <div class="wrap">
     <div class="shead">
       <h2>Secure by design. <span>Independent of manufacturer clouds.</span></h2>
-      <p class="snote"><b>10 / 14 · Security and reliability</b>Local control. EU hosted. Verified connections.</p>
+      <p class="snote"><b>10 / 13 · Security and reliability</b>Local control. EU hosted. Verified connections.</p>
     </div>
-    <div class="split">
+    <div class="split rev">
       <div class="txt">
         <p class="lede-p">Control of energy equipment must not depend on a third party's cloud or on an internet connection. HeloGrid controls devices locally, keeps working offline, and protects every connection between site and server.</p>
         <ul class="pts">
@@ -1402,7 +1444,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
         </ul>
       </div>
       <figure class="pl rv">
-        <figcaption><span><b>Fig. 11</b> · Security architecture</span><span>Simplified</span></figcaption>
+        <figcaption><span><b>Fig. 12</b> · Security architecture</span><span>Simplified</span></figcaption>
         <div class="fb ui" role="img" aria-label="Three layers: the HeloGrid cloud in the EU, connected over mTLS with a per-controller login to the controller on site, which talks to devices over the local network. Manufacturer clouds are not used.">
           <div class="layer" style="background:#fff;border:1.5px solid #16161A">
             <span class="ic" style="background:#F3F4F6"><svg viewBox="0 0 24 24" fill="none" stroke="#16161A" stroke-width="2"><path d="M7 18a5 5 0 0 1-.5-10A6 6 0 0 1 18 9a4.5 4.5 0 0 1-1 9z"/></svg></span>
@@ -1445,35 +1487,18 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   </div>
 </section>
 
-<!-- ============================ 10 · WHY HELOGRID ============================ -->
-<section class="sect mark" id="why">
-  <div class="wrap">
-    <div class="shead">
-      <h2>Why HeloGrid, <span>in short.</span></h2>
-      <p class="snote"><b>11 / 14 · Why HeloGrid</b>Everything above, in five lines.</p>
-    </div>
-    <div class="why-grid rv">
-      <div class="why"><span class="n">01</span><div><h3>Fast to commission</h3><p>The device list is prepared in the portal before the site visit. The controller downloads it on first connection and checks each device, and known models are matched to drivers automatically.</p></div></div>
-      <div class="why"><span class="n">02</span><div><h3>Works offline</h3><p>Control runs on site, so a lost connection does not stop the site or break grid limits.</p></div></div>
-      <div class="why"><span class="n">03</span><div><h3>Vendor-independent</h3><p>One platform for mixed equipment, with no lock-in to a single manufacturer.</p></div></div>
-      <div class="why"><span class="n">04</span><div><h3>Built for service businesses</h3><p>Alerts, tasks, maintenance and client reports are part of the product, not add-ons.</p></div></div>
-      <div class="why"><span class="n">05</span><div><h3>Your brand, your client</h3><p>You own the client relationship, the contract and the price.</p></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ 11 · TEAM ============================ -->
 <section class="sect mark" id="team">
   <div class="wrap">
     <div class="shead">
       <h2>A small team that knows <span>both the software and the site.</span></h2>
-      <p class="snote"><b>12 / 14 · Team</b>Founder-led. Close to every early site.</p>
+      <p class="snote"><b>11 / 13 · Team</b>Founder-led. Close to every early site.</p>
     </div>
     <div class="intro"><p class="lede-p">A founder and a lead developer building the platform we'd want to use ourselves, working closely with installers on every early site.</p></div>
     <div class="team rv">
       <article class="member">
         <div class="member-top">
-          <span class="photo av-t" role="img" aria-label="Oskars Ozoliņš">OO</span>
+          <span class="photo" role="img" aria-label="Oskars Ozoliņš">OO</span>
           <a class="li" href="https://www.linkedin.com/in/oskars-ozolins/" target="_blank" rel="noopener noreferrer" aria-label="Oskars Ozoliņš on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21h-4z"/></svg></a>
         </div>
         <h3>Oskars Ozoliņš</h3>
@@ -1482,24 +1507,19 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
       </article>
       <article class="member">
         <div class="member-top">
-          <span class="photo av-t" role="img" aria-label="Andris Matvejevs">AM</span>
+          <span class="photo" role="img" aria-label="Andris Matvejevs">AM</span>
           <a class="li" href="https://www.linkedin.com/in/andrismatvejevs/" target="_blank" rel="noopener noreferrer" aria-label="Andris Matvejevs on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21h-4z"/></svg></a>
         </div>
         <h3>Andris Matvejevs</h3>
         <p class="role">Lead developer</p>
         <p>Builds the on-site control, device connections and fleet platform.</p>
       </article>
-      <figure class="pl bridge">
-        <figcaption><span><b>Fig. 12</b> · Software and site</span><span>Designed together</span></figcaption>
-        <div class="fb ui code" aria-hidden="true">
-          <div><span class="k">site:</span> Valmiera Bus Depot</div>
-          <div><span class="k">driver:</span> inverter-b v2.0</div>
-          <div><span class="k">plan:</span> every 15 min</div>
-          <div><span class="k">offline:</span> keep_running</div>
-          <div><span class="k">limits:</span> import 250 kW · export 190 kW</div>
-          <div class="c">✓ same team, software and site</div>
-        </div>
-      </figure>
+      <!-- BOOKING LINK: replace href with the real scheduling URL -->
+      <aside class="book">
+        <div class="book-who"><span class="photo" role="img" aria-label="Oskars Ozoliņš">OO</span><div><b>Oskars Ozoliņš</b><span>Founder, HeloGrid</span></div></div>
+        <p>Book a discovery call. We'll walk through your sites and how you run service today.</p>
+        <a class="btn btn-primary btn-block" href="mailto:partners@helogrid.com">Book a discovery call <span class="chev">→</span></a>
+      </aside>
     </div>
   </div>
 </section>
@@ -1509,32 +1529,18 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
   <div class="wrap">
     <div class="shead">
       <h2>What installers and facility managers <span>ask first.</span></h2>
-      <p class="snote"><b>13 / 14 · FAQ</b>Still unsure? Book a call.</p>
+      <p class="snote"><b>12 / 13 · FAQ</b>Short answers. More on a call.</p>
     </div>
-    <div class="faq-grid">
-      <div class="txt">
-        <!-- BOOKING LINK: replace href with the real scheduling URL -->
-        <aside class="book">
-          <div class="book-who"><span class="photo av-t" role="img" aria-label="Oskars Ozoliņš">OO</span><div><b>Oskars Ozoliņš</b><span>Founder, HeloGrid</span></div></div>
-          <p>Book a discovery call. We'll walk through your sites and how you run service today.</p>
-          <a class="btn btn-primary" style="width:100%" href="mailto:partners@helogrid.com">Book a discovery call <span class="chev">→</span></a>
-        </aside>
-      </div>
-      <div class="faq rv">
-        <details open><summary>What does HeloGrid cost me?</summary><p>A one-off payment that covers 10 years. Whatever monthly fee you charge your client is yours.</p></details>
+    <div class="faq rv">
+      <details open><summary>What does HeloGrid cost me?</summary><p>A one-off payment that covers 10 years. Whatever monthly fee you charge your client is yours.</p></details>
         <details><summary>Do I have to change the equipment I install?</summary><p>No. HeloGrid works with many brands, so you keep using what you know.</p></details>
         <details><summary>Who owns the client relationship?</summary><p>You do. The contract, the price and the brand on the screen are yours.</p></details>
-        <details><summary>Who sets the monthly fee?</summary><p>You. We give you example pricing and a ready-made pitch.</p></details>
         <details><summary>How long does setup take?</summary><p><span class="ph">[Typical setup time per site]</span></p></details>
-        <details><summary>What if the internet goes down?</summary><p>The site keeps running on local control, and telemetry syncs when the connection is back.</p></details>
-        <details><summary>Does it help with warranty claims?</summary><p>Yes. A continuous operating log is the evidence manufacturers ask for.</p></details>
-        <details><summary>Can I see all my sites in one place?</summary><p>Yes, in one fleet view with alerts, reports and maintenance tasks.</p></details>
         <details><summary>What size of site does it suit?</summary><p>Homes to commercial buildings, <span class="ph">[supported size range]</span>.</p></details>
         <details><summary>We already have a building management system. Does this replace it?</summary><p>No. HeloGrid works alongside it and adds energy optimisation for solar, batteries, heat pumps and chargers.</p></details>
         <details><summary>How does this protect me from price competition?</summary><p>Clients judge a managed service on results, not on the price of hardware. That's much harder to undercut.</p></details>
         <details><summary>How do we start?</summary><p>Book a call. We'll walk through your sites and support you directly on the first installations.</p></details>
       </div>
-    </div>
   </div>
 </section>
 
@@ -1544,7 +1550,7 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
     <div class="close rv">
       <div class="close-in">
         <div>
-          <p class="snote"><b>14 / 14 · Partner programme</b></p>
+          <p class="snote"><b>13 / 13 · Partner programme</b></p>
           <h2>Start with one site. <span>Grow it into a service business.</span></h2>
           <p class="lede-p">You don't need to commit your whole portfolio to find out whether HeloGrid fits. Start with a single site, see how it runs, and see how your client responds to the reports. Then roll it out to the rest of your sites at your own pace. It all begins with a conversation about your sites and how you run service today.</p>
           <div class="close-actions">
@@ -1588,8 +1594,8 @@ html[data-theme="dark"] figure.pl [stroke="#5C5F66"]{stroke:#A3A6AB}
 
 <script>
 // image fallback: if a logo file cannot load, show its name as text
-document.querySelectorAll('.logo img,.brand img').forEach(function(im){
-  function fb(){var s=document.createElement('span');s.className=im.closest('.brand')?'wm-b':'wm';s.textContent=im.alt;im.replaceWith(s)}
+document.querySelectorAll('.logo img,.brand img,.onebar-logo img').forEach(function(im){
+  function fb(){var s=document.createElement('span');s.className=(im.closest('.brand')||im.closest('.onebar-logo'))?'wm-b':'wm';s.textContent=im.alt;im.replaceWith(s)}
   if(im.complete&&im.naturalWidth===0)fb();else im.addEventListener('error',fb);
 });
 
